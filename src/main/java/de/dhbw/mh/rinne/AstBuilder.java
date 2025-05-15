@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import de.dhbw.mh.rinne.antlr.RinneBaseVisitor;
 import de.dhbw.mh.rinne.antlr.RinneParser;
 import de.dhbw.mh.rinne.ast.AstExpressionNode;
+import de.dhbw.mh.rinne.ast.AstFunctionCallNode;
 import de.dhbw.mh.rinne.ast.AstNode;
 import de.dhbw.mh.rinne.ast.AstProgramNode;
 import de.dhbw.mh.rinne.ast.AstStmtNode;
@@ -61,6 +62,15 @@ public class AstBuilder extends RinneBaseVisitor<AstNode> {
     // Team 1
 
     // Team 2
+    @Override
+    public AstNode visitFunctionCall(RinneParser.FunctionCallContext ctx) {
+        CodeLocation codeLoc = getCodeLocation(ctx);
+        String func = ctx.funcCall().getText();
+        List<AstExpressionNode> args = new ArrayList<AstExpressionNode>();
+        ctx.funcCall().actualParameters.forEach(e -> args.add((AstExpressionNode) visit(e)));
+
+        return new AstFunctionCallNode(codeLoc, func, args);
+    }
 
     // Team 3
 

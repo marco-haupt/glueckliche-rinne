@@ -13,6 +13,7 @@ import de.dhbw.mh.rinne.ast.AstProgramNode;
 import de.dhbw.mh.rinne.ast.AstStmtNode;
 import de.dhbw.mh.rinne.ast.AstVariableDeclarationStmtNode;
 import de.dhbw.mh.rinne.ast.AstVariableReferenceNode;
+import de.dhbw.mh.rinne.ast.AstAssignmentNode;
 
 public class AstBuilder extends RinneBaseVisitor<AstNode> {
 
@@ -59,6 +60,13 @@ public class AstBuilder extends RinneBaseVisitor<AstNode> {
     }
 
     // Team 1
+    @Override
+    public AstNode visitAssignment(RinneParser.AssignmentContext ctx) {
+        CodeLocation codeLoc = getCodeLocation(ctx);
+        String name = ctx.variableName.getText();
+        var value = (AstExpressionNode) visit(ctx.expression());
+        return new AstAssignmentNode(codeLoc, name, value);
+    }
 
     // Team 2
 

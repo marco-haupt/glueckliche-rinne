@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Language Specification - Glückliche Rinne</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Language Specification";
+        var mkdocs_page_input_path = "language-spec.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Glückliche Rinne
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Getting Started</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Language Specification</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-lexical-structure">1. Lexical Structure</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#11-keywords-reserved-words">1.1 Keywords (Reserved Words)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#12-identifiers">1.2 Identifiers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#13-literals">1.3 Literals</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#14-comments">1.4 Comments</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#141-single-line-comments">1.4.1 Single-line Comments</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#142-multi-line-block-comments">1.4.2 Multi-line (Block) Comments</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-expressions-and-operators">2. Expressions and Operators</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-types">3. Types</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-statements-and-control-structures">4. Statements and Control Structures</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#41-console-output">4.1 Console Output</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#42-program-termination">4.2 Program Termination</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#43-variable-declarations">4.3 Variable Declarations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#44-assignments">4.4 Assignments</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#45-conditional-statements">4.5 Conditional Statements</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#46-looping">4.6 Looping</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#47-functions">4.7 Functions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#48-error-handling">4.8 Error handling</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-program-structure">5. Program Structure</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-examples">6. Examples</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Glückliche Rinne</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Language Specification</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="language-specification">Language Specification</h1>
+<p><em>"Glückliche Rinne"</em> (literally: <em>happy gutter</em>) is a statically-typed, imperative, block-structured programming language developed as part of an academic course on compiler construction. It is intentionally designed to be syntactically dissimilar from Java (the implementation language)
+to improve didactic clarity and encourage student exploration in language and compiler design.</p>
+<h2 id="1-lexical-structure">1. Lexical Structure</h2>
+<p>The entire language is case-sensitive. Lexemes like <code>drucke</code>, <code>Drucke</code>, and <code>DRUCKE</code> are treated as distinct.
+Whitespace is used solely as a separator; it carries no syntactic significance and may be used freely to improve code readability.</p>
+<h3 id="11-keywords-reserved-words">1.1 Keywords (Reserved Words)</h3>
+<p>Certain lexemes are reserved because they carry special meaning. They <strong>cannot</strong> be used for other purposes. Misuse of a keyword results in a compile-time error.</p>
+<p><code>als</code>, <code>ansonsten</code>, <code>bitte</code>, <code>deklariere</code>, <code>drucke</code>, <code>falsch</code>, <code>Fehler</code>, <code>Fließzahl</code>, <code>Ganzzahl</code>, <code>gebe</code>, <code>ja</code>, <code>mit</code>, <code>nein</code>, <code>oder</code>, <code>ohje</code>, <code>ohne</code>, <code>Schnur</code>, <code>so</code>, <code>solange</code>, <code>und</code>, <code>wahr</code>, <code>Wahrheitswert</code>, <code>wenn</code>, <code>wiederhole</code>, <code>während</code>, <code>zurück</code></p>
+<h3 id="12-identifiers">1.2 Identifiers</h3>
+<p>Identifiers are the names used to represent values, variables, functions, or other entities in the program. They must begin with a letter or underscore (<code>[a-zA-ZäöüÄÖÜ_]</code>), and may contain letters, digits (<code>[0-9]</code>), or underscores thereafter.</p>
+<p>⚠️ Remember that keywords cannot be used as identifiers and that the language is case-sensitive, so <code>x</code> and <code>X</code> are considered different identifiers.</p>
+<h3 id="13-literals">1.3 Literals</h3>
+<p>The language supports the following kinds of literal values:</p>
+<ul>
+<li>Integer literals: e.g. <code>42</code>, <code>0</code>, or <code>-7</code>, within the range -2<sup>63</sup> to 2<sup>63</sup>-1.</li>
+<li>Decimal numbers: e.g. <code>3.14159</code> or <code>2.71828</code></li>
+<li>Boolean literals: <code>wahr</code> or <code>falsch</code> (with <code>ja</code> and <code>nein</code> accepted as stylistic variants)</li>
+<li>String literals: sequences of characters enclosed in double quotes, e.g. <code>"text"</code>.<br />
+  Multiline strings are not supported</li>
+</ul>
+<h3 id="14-comments">1.4 Comments</h3>
+<p>Comments allow programmers to include notes or explanations in their code that are ignored by the compiler. They can improve readability, document intent, or just leave passive-aggressive reminders for future readers (including yourself).</p>
+<h4 id="141-single-line-comments">1.4.1 Single-line Comments</h4>
+<p>Single-line comments begin with two forward slashes <code>//</code> and continue to the end of the line. They can appear on their own line or after code:</p>
+<pre><code class="language-gr">// This is a single-line comment
+</code></pre>
+<h4 id="142-multi-line-block-comments">1.4.2 Multi-line (Block) Comments</h4>
+<p>For longer explanations or temporarily disabling sections of code, you can use block comments. A block comment begins with <code>/*</code> and ends with <code>*/</code>. Everything in between is ignored by the compiler—even across multiple lines. Block comments cannot be nested.</p>
+<pre><code class="language-gr">/* This is a multi-line comment.
+   It ends on the first occurrence of */
+</code></pre>
+<h2 id="2-expressions-and-operators">2. Expressions and Operators</h2>
+<p>Expressions represent computations composed of literals, identifiers, operators, and function calls (see §4.7). When evaluated, an expression yields a value.</p>
+<p>In an expression like <code>3 + 4 * 5</code>, the operators <code>+</code> und <code>*</code> both compete for the operand <code>4</code>. To resolve such situations consistently, the language defines two rules:</p>
+<ul>
+<li><strong>Precedence</strong> defines which operators bind tighter.</li>
+<li><strong>Associativity</strong> defines how operators of equal precedence group (left-to-right or right-to-left).</li>
+</ul>
+<p>The following table lists all supported operators, ordered from highest to lowest precedence, with <code>a</code> and <code>b</code> being placeholders for arbitrary sub-expressions:</p>
+<table>
+<thead>
+<tr>
+<th>Precedence</th>
+<th>Operator</th>
+<th>Description</th>
+<th>Associativity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>a()</code></td>
+<td>function call</td>
+<td>left-to-right</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>+a</code> <code>-a</code> <code>!a</code></td>
+<td>unary plus, unary minus, and logical NOT</td>
+<td>right-to-left</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>a * b</code> <code>a / b</code> <code>a % b</code></td>
+<td>Multiplication, division, and remainder</td>
+<td>left-to-right</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>a + b</code> <code>a - b</code></td>
+<td>Addition and subtraction</td>
+<td>left-to-right</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>a &lt; b</code> <code>a &lt;= b</code> <code>a &gt; b</code> <code>a &gt;= b</code></td>
+<td>Relational comparisons</td>
+<td>left-to-right</td>
+</tr>
+<tr>
+<td>5</td>
+<td> <code>a == b</code> <code>a != b</code></td>
+<td>Equality comparisons</td>
+<td>left-to-right</td>
+</tr>
+<tr>
+<td>6</td>
+<td> <code>a &amp;&amp; b</code></td>
+<td>logical AND</td>
+<td>left-to-right</td>
+</tr>
+<tr>
+<td>7</td>
+<td> <code>a || b</code></td>
+<td>logical OR</td>
+<td>left-to-right</td>
+</tr>
+</tbody>
+</table>
+<p>Use parentheses <code>()</code> to override operator precedence and clarify grouping. For example, <code>(1 + 2) * 3</code> evaluates to <code>9</code>.</p>
+<p>The language also supports chained comparisons in mathematical style. An expression like <code>3 &lt; x &lt; 10</code> is interpreted as <code>3 &lt; x &amp;&amp; x &lt; 10</code>, simplifying range checks and improving readability.</p>
+<h2 id="3-types">3. Types</h2>
+<p>Types describe what kind of data a value represents—numbers, text, truth values, and so on. The language provides the following built-in types:</p>
+<ul>
+<li><code>Ganzzahl</code>: 64-bit signed integers</li>
+<li><code>Fließzahl</code>: 64-bit floating-point numbers</li>
+<li><code>Wahrheitswert</code>: Boolean values (<code>wahr</code>/<code>falsch</code>, or <code>ja</code>/<code>nein</code>)</li>
+<li><code>Schnur</code>: Immutable sequences of characters</li>
+</ul>
+<p><strong>⚠️ TODO</strong>: Type conversions are not yet specified.</p>
+<h2 id="4-statements-and-control-structures">4. Statements and Control Structures</h2>
+<p>Programs consist of statements, which are executed in sequence. While expressions produce values, statements produce effects—such as assigning values to variables, printing output, or changing the control flow. Statements are separated by commas, and blocks end with a period (<code>.</code>).</p>
+<p>There is no way to define your own block scope explicitly, as is usually done within curly braces <code>{}</code>. Blocks are created implicitly by control structures or function definitions (see §4.5 to §4.7). Only the language’s control structures determine where blocks begin and end.</p>
+<h3 id="41-console-output">4.1 Console Output</h3>
+<p>The <code>drucke</code> statement prints the value of an expression to standard output (typically the console). It does not append a newline or space; formatting must be handled explicitly within string literals.</p>
+<p>Printed values appear in their plain form (e.g. numbers as digits, booleans as <code>wahr</code> or <code>falsch</code>).</p>
+<pre><code class="language-gr">drucke &quot;Hallo, Welt&quot;,
+drucke 21 * 2,
+drucke wahr,
+</code></pre>
+<h3 id="42-program-termination">4.2 Program Termination</h3>
+<p>The <code>ohje</code> statement is used to <strong>immediately and unconditionally terminate</strong> program execution. It provides no error message, no traceback, and no additional explanation.</p>
+<pre><code class="language-gr">drucke &quot;This should be output.&quot;,
+ohje,
+drucke &quot;This will not be output.&quot;,
+</code></pre>
+<h3 id="43-variable-declarations">4.3 Variable Declarations</h3>
+<p>Programs need memory to perform their calculations. A variable is a named storage location that holds a value during program execution. Variables are mutable, meaning their contents can change over time. Each variable has:</p>
+<ul>
+<li>a <strong>name</strong> (an identifier),</li>
+<li>a <strong>type</strong> (such as <code>Ganzzahl</code> or <code>Schnur</code>),</li>
+<li>and a <strong>value</strong>, which may be assigned immediately or later.</li>
+</ul>
+<p>All variables must be explicitly declared before use. A declaration introduces the variable's name, its type, and optionally its initial value. The language supports two forms of variable declaration:</p>
+<p>The most common form combines declaration and initialization in a single step:</p>
+<pre><code class="language-gr">anteil als Fließzahl := 0,
+zahl := 42,
+</code></pre>
+<p>This form allows for type inference—the type is determined from the expression.</p>
+<p>To declare a variable without assigning it a value yet, use the <code>oder so</code> form:</p>
+<pre><code class="language-gr">text als Schnur oder so,
+</code></pre>
+<p>This expresses that the variable exists but remains undefined until explicitly assigned.</p>
+<p>Here is the general syntax:</p>
+<pre><code class="language-ebnf">variableDeclaration ::= identifier declarationTail
+
+declarationTail     ::= 'als' type initialization
+declarationTail     ::= ':=' expression ','
+
+initialization      ::= 'oder' 'so'
+initialization      ::= ':=' expression ','
+</code></pre>
+<p>All variables are <strong>block-scoped</strong>, meaning they are only visible within the block in which they are declared. There is no implicit sharing of scope between blocks. If a variable is declared inside a loop or conditional, it is not accessible outside of that structure. Variables may be <strong>shadowed</strong> by new declarations of the same name in nested blocks.</p>
+<h3 id="44-assignments">4.4 Assignments</h3>
+<p>Once a variable has been declared, its value can be changed through an assignment. An assignment updates the contents of a variable with the result of evaluating an expression. Unlike declarations, assignments do not introduce a new variable—they operate on one that already exists.</p>
+<pre><code class="language-gr">zahl als Ganzzahl oder so,
+name als Schnur := &quot;Alice&quot;,
+zahl = 42,
+zahl = zahl + 1,
+name = name + &quot; und Bob&quot;,
+</code></pre>
+<p>Here is the general syntax:</p>
+<pre><code class="language-ebnf">assignment ::= identifier '=' expression ','
+</code></pre>
+<p>The left-hand side must be the name of a previously declared variable. The right-hand side must be a valid expression whose result matches the type of the variable.</p>
+<h3 id="45-conditional-statements">4.5 Conditional Statements</h3>
+<p>Sometimes, a program needs to make decisions. This is where conditional statements come in. They allow a block of code to execute only if a certain condition is true. The construct used is <code>wenn</code>, optionally followed by <code>ansonsten</code> for an alternative path.</p>
+<p>The condition is written in parentheses after <code>wenn</code>. If it evaluates to true, the associated block runs. If it doesn’t—and a <code>ansonsten</code> block is provided—that block runs instead.</p>
+<p>For example:</p>
+<pre><code class="language-gr">wenn(x &lt; 0)
+  drucke &quot;negativ&quot;,
+ansonsten
+  drucke &quot;nicht negativ&quot;,
+.
+</code></pre>
+<p>In this case, the program prints either "negativ" or "nicht negativ" depending on the value of <code>x</code>.</p>
+<p>Conditional blocks can contain multiple statements, separated by commas:</p>
+<pre><code class="language-gr">wenn(x == 12)
+  drucke &quot;zwölf&quot;,
+  drucke &quot; oder ein Duzend&quot;,
+.
+</code></pre>
+<p>Nesting is allowed, but there is no <code>else if</code> construct. If you need multiple branches, you can nest <code>wenn</code> statements or use logical operators such as <code>und</code>, <code>oder</code>, and <code>nicht</code> to build compound conditions.</p>
+<p>Here is the general syntax:</p>
+<pre><code class="language-ebnf">ifStatement ::= 'wenn' '(' condition ')' statements [ 'ansonsten' statements ] '.'
+</code></pre>
+<p>We had plans to support pattern matching too—but unless someone finds a free weekend, it probably won’t happen in time. So for now, it’s just <code>wenn</code> and <code>ansonsten</code>. Oh, and there’s no ternary operator either. Honestly, that’s the least of this language’s problems.</p>
+<h3 id="46-looping">4.6 Looping</h3>
+<p>Repeating things is a fundamental part of programming. This language offers two loop constructs: <code>während</code> and <code>wiederhole ... solange</code>. Both execute a block of code repeatedly, but they differ in <em>when</em> the loop condition is evaluated.</p>
+<p>The pre-check loop (<code>während</code>) checks the condition <em>before</em> each iteration. If the condition is false at the start, the loop body may never run at all. The post-check loop (<code>wiederhole ... solange</code>), by contrast, checks the condition <em>after</em> each iteration, which guarantees the loop body runs <em>at least once</em>.</p>
+<p>For example:</p>
+<pre><code class="language-gr">zähler := 0,
+während(zähler &lt; 5)
+  drucke zähler,
+  zähler := zähler + 1,
+.
+</code></pre>
+<p>This prints the numbers 0 through 4. The loop condition is checked <em>before</em> each iteration, and the loop exits as soon as <code>zähler</code> is no longer less than 5.</p>
+<p>Now compare with:</p>
+<pre><code class="language-gr">zähler := 0,
+wiederhole
+  drucke zähler,
+  zähler := zähler + 1,
+solange(zähler &lt; 5),
+</code></pre>
+<p>This produces the same output—unless <code>zähler</code> starts at a value like 10. In that case, the <code>wiederhole</code> block still executes once before the condition is even checked. Sometimes that’s useful. Sometimes it isn’t.</p>
+<p>There are no <code>break</code> or <code>continue</code> statements. Control flow is expected to follow the structure you write—no shortcuts, no jumping out. That was a conscious decision. Whether it holds up under pressure remains to be seen.</p>
+<p>Here is the general syntax:</p>
+<pre><code class="language-ebnf">whileStatement ::= 'während' '(' condition ')' statements '.'
+doWhileStatement ::= 'wiederhole' statements 'solange' '(' condition ')' ','
+</code></pre>
+<h3 id="47-functions">4.7 Functions</h3>
+<p>Functions allow tightly related sections of code to be extracted into named, reusable units. A function encapsulates a specific task within a clearly defined block of code that can be invoked ("called") whenever needed. This promotes modularity by organizing logic into manageable components and abstracting away implementation details behind a clean interface.</p>
+<p>Using functions improves code readability, facilitates reuse, and reduces redundancy, which in turn enhances maintainability. Because functions isolate behavior, they can be tested independently, making debugging easier and improving overall software reliability.</p>
+<p>Functions can be <em>overloaded</em>, meaning multiple functions may share the same name as long as their parameter types or counts differ. Each function also defines its own scope, ensuring that variables declared within it do not interfere with those outside.</p>
+<p>Function definitions begin with the keyword <code>deklariere</code>, and function calls start with the keyword <code>bitte</code>. The syntax is defined by the following grammar:</p>
+<pre><code class="language-ebnf">functionDefinition ::= 'deklariere' identifier '(' 'mit' parameters ')' statements '.'
+parameters ::= 'ohne'
+parameters ::= parameter { 'und' parameter }
+parameter ::= identifier 'als' type
+
+functionCall ::= 'bitte' identifier
+</code></pre>
+<p>Because function calls start with <code>bitte</code>, function names are expected to begin with a verb to clearly convey the action being requested.</p>
+<p>For example, a function to compute Fibonacci numbers can be defined and used as follows:</p>
+<pre><code class="language-gr">deklariere berechneFibonacci (mit n als Ganzzahl)
+  wenn(n &lt;= 1)
+    gebe n zurück,
+  .
+  gebe bitte berechneFibonacci mit (n-1) + bitte berechneFibonacci mit (n-2) zurück,
+.
+
+n := 10,
+bitte fibonacci mit n,
+</code></pre>
+<p>As you can see from the example, functions can also call themselves to solve problems that are naturally recursive, such as tree traversal or computing Fibonacci numbers.</p>
+<h3 id="48-error-handling">4.8 Error handling</h3>
+<p>All types implicitly include a special sentinel value named <code>Fehler</code>, representing an error state. This value does not automatically alter control flow—errors must be explicitly checked and handled using conditionals. If not checked, errors may silently propagate—potentially leading to incorrect or confusing program behavior.</p>
+<p>For example:</p>
+<pre><code class="language-gr">quotient := 1 / 0,
+wenn(quotient == Fehler)
+  drucke &quot;Anyone who understands this language can also divide by zero.&quot;,
+  ohje,
+.
+</code></pre>
+<p>In this example, division by zero produces <code>Fehler</code>, but the program continues executing unless the error is explicitly checked. Assigning <code>Fehler</code> to a variable does not interrupt execution, which allows errors to go unnoticed unless the programmer takes care to detect them.</p>
+<p>For the record:
+I voiced strong opposition against this design, but the class insisted. I accepted it as as a cautionary example. If they refuse to listen, they'll just have to learn through pain 😈</p>
+<h2 id="5-program-structure">5. Program Structure</h2>
+<p>There is no explicit entry point such as a <code>main</code> function. Execution begins with the first top-level statement and continues sequentially with the next statements. This design makes the language easy to get started with, especially for short scripts and educational use.</p>
+<h2 id="6-examples">6. Examples</h2>
+<p>This program prints the sum of all even numbers from 1 to 20:</p>
+<pre><code class="language-gr">deklariere i als Ganzzahl := 1,
+deklariere summe als Ganzzahl := 0,
+
+während (i &lt;= 20)
+  wenn (i % 2 == 0)
+    summe = summe + i,
+  .
+  i = i + 1,
+.
+
+drucke &quot;Summe der geraden Zahlen zwischen 1 und 20: &quot;,
+drucke summe,
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../getting-started/" class="btn btn-neutral float-left" title="Getting Started"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../about/" class="btn btn-neutral float-right" title="About">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../getting-started/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

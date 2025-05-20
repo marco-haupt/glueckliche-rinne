@@ -56,6 +56,13 @@ public class AstPrinter extends AstVisitor<String> {
     // Team 2
 
     // Team 3
+    @Override
+    String visitFunctionDefinition(AstFunctionDefinitionNode node) {
+        enterNode();
+        String temp = indentationFor(level) + "FunctionDefinition(" + node.locationAsString() + ")\n";
+        exitNode();
+        return temp;
+    }
 
     // Team 4
 

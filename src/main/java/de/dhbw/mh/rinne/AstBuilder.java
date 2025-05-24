@@ -9,6 +9,7 @@ import de.dhbw.mh.rinne.antlr.RinneBaseVisitor;
 import de.dhbw.mh.rinne.antlr.RinneParser;
 import de.dhbw.mh.rinne.ast.AstDruckeStmtNode;
 import de.dhbw.mh.rinne.ast.AstExpressionNode;
+import de.dhbw.mh.rinne.ast.AstFunctionCallNode;
 import de.dhbw.mh.rinne.ast.AstNode;
 import de.dhbw.mh.rinne.ast.AstProgramNode;
 import de.dhbw.mh.rinne.ast.AstReturnStmtNode;
@@ -71,6 +72,15 @@ public class AstBuilder extends RinneBaseVisitor<AstNode> {
     }
 
     // Team 2
+    @Override
+    public AstNode visitFuncCall(RinneParser.FuncCallContext ctx) {
+        CodeLocation codeLoc = getCodeLocation(ctx);
+        String func = ctx.functionName.getText();
+        List<AstExpressionNode> args = new ArrayList<AstExpressionNode>();
+        ctx.actualParameters.forEach(e -> args.add((AstExpressionNode) visit(e)));
+
+        return new AstFunctionCallNode(codeLoc, func, args);
+    }
 
     // Team 3
 

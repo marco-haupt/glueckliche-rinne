@@ -1,0 +1,8 @@
+Program(1:0)
+ IfElseStmt(1:0)
+  VarRef(1:0)
+  DruckeStmt(2:2)
+  DruckeStmt(4:2)
+ IfElseStmt(5:0)
+  VarRef(5:0)
+ DruckeStmt(6:2)

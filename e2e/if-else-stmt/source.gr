@@ -1,0 +1,6 @@
+wenn(x < 0)
+  drucke "negativ",
+ansonsten
+  drucke "nicht negativ",;
+wenn(x=0)
+  drucke "hallo",;

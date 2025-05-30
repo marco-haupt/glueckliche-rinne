@@ -5,7 +5,7 @@ public class CodeLocation {
     private final int line;
     private final int column;
 
-    CodeLocation(int line, int column) {
+    public CodeLocation(int line, int column) {
         this.line = line;
         this.column = column;
     }

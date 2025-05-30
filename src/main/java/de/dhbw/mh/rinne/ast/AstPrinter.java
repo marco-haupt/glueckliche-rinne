@@ -22,6 +22,9 @@ public class AstPrinter extends AstVisitor<String> {
     String visitChildren(AstNode node) {
         StringBuilder builder = new StringBuilder();
         for (AstNode child : node.getChildren()) {
+            if (child == null) {
+                continue;
+            }
             builder.append(child.accept(this));
         }
         return builder.toString();
@@ -100,6 +103,12 @@ public class AstPrinter extends AstVisitor<String> {
     }
 
     // Team 6
+    String visitPreCheckLoop(AstPreCheckLoopNode node) {
+        enterNode();
+        String temp = indentationFor(level) + "While(" + node.locationAsString() + ")\n" + visitChildren(node);
+        exitNode();
+        return temp;
+    }
 
     // Team 7
     String visitDruckeStmt(AstDruckeStmtNode node) {
@@ -114,6 +123,14 @@ public class AstPrinter extends AstVisitor<String> {
     String visitReturnStmt(AstReturnStmtNode node) {
         enterNode();
         String temp = indentationFor(level) + "Return(" + node.locationAsString() + ")\n";
+        exitNode();
+        return temp;
+    }
+
+    @Override
+    String visitScopedStatements(AstScopedStmtsNode node) {
+        enterNode();
+        String temp = indentationFor(level) + "Stmts(" + node.locationAsString() + ")\n" + visitChildren(node);
         exitNode();
         return temp;
     }

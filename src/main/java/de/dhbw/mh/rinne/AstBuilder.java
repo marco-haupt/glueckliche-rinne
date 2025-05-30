@@ -14,8 +14,10 @@ import de.dhbw.mh.rinne.ast.AstIfElseStmtNode;
 import de.dhbw.mh.rinne.ast.AstExpressionStmtNode;
 import de.dhbw.mh.rinne.ast.AstFunctionCallNode;
 import de.dhbw.mh.rinne.ast.AstNode;
+import de.dhbw.mh.rinne.ast.AstPreCheckLoopNode;
 import de.dhbw.mh.rinne.ast.AstProgramNode;
 import de.dhbw.mh.rinne.ast.AstReturnStmtNode;
+import de.dhbw.mh.rinne.ast.AstScopedStmtsNode;
 import de.dhbw.mh.rinne.ast.AstStmtNode;
 import de.dhbw.mh.rinne.ast.AstVariableDeclarationStmtNode;
 import de.dhbw.mh.rinne.ast.AstVariableReferenceNode;
@@ -57,13 +59,25 @@ public class AstBuilder extends RinneBaseVisitor<AstNode> {
     public AstNode visitTypedVariableDeclaration(RinneParser.TypedVariableDeclarationContext ctx) {
         CodeLocation codeLoc = getCodeLocation(ctx);
         String name = ctx.variableName.getText();
-        String type = ctx.type().getText();
+        var type = RinneType.from(ctx.type().getText());
 
-        if (ctx.initialValue.isEmpty()) {
+        if (ctx.initialValue == null || ctx.initialValue.isEmpty()) {
             return new AstVariableDeclarationStmtNode(codeLoc, name, type, null);
         }
         AstExpressionNode init = (AstExpressionNode) visit(ctx.initialValue);
         return new AstVariableDeclarationStmtNode(codeLoc, name, type, init);
+    }
+
+    @Override
+    public AstNode visitUntypedVariableDeclaration(RinneParser.UntypedVariableDeclarationContext ctx) {
+        CodeLocation codeLoc = getCodeLocation(ctx);
+        String name = ctx.variableName.getText();
+
+        if (ctx.initialValue == null || ctx.initialValue.isEmpty()) {
+            return new AstVariableDeclarationStmtNode(codeLoc, name, null, null);
+        }
+        AstExpressionNode init = (AstExpressionNode) visit(ctx.initialValue);
+        return new AstVariableDeclarationStmtNode(codeLoc, name, null, init);
     }
 
     @Override
@@ -175,6 +189,18 @@ public class AstBuilder extends RinneBaseVisitor<AstNode> {
     }
 
     // Team 6
+    public AstNode visitWhileStatement(RinneParser.WhileStatementContext ctx) {
+        CodeLocation codeLoc = getCodeLocation(ctx);
+        AstExpressionNode condition = (AstExpressionNode) visit(ctx.condition());
+
+        AstScopedStmtsNode scopedStmts = new AstScopedStmtsNode(codeLoc);
+        for (var stmtCtx : ctx.statement()) {
+            AstStmtNode stmtNode = (AstStmtNode) visit(stmtCtx);
+            scopedStmts.add(stmtNode);
+        }
+
+        return new AstPreCheckLoopNode(codeLoc, condition, scopedStmts);
+    }
 
     // Team 7
     @Override
@@ -190,6 +216,19 @@ public class AstBuilder extends RinneBaseVisitor<AstNode> {
         CodeLocation codeLoc = getCodeLocation(ctx);
         var expr = (AstExpressionNode) visit(ctx.expression());
         return new AstReturnStmtNode(codeLoc, expr);
+    }
+
+    @Override
+    public AstNode visitCondition(RinneParser.ConditionContext ctx) {
+        if (ctx.getChildCount() != 1) {
+            return null;
+        }
+        if (ctx.IDENTIFIER() != null) {
+            CodeLocation codeLoc = getCodeLocation(ctx);
+            String name = ctx.IDENTIFIER().getText();
+            return new AstVariableReferenceNode(codeLoc, name);
+        }
+        return null;
     }
 
 }

@@ -27,8 +27,8 @@ druckeStatement
   ;
 
 variableDeclaration
-  : variableName=IDENTIFIER ALS type (ODER SO | INIT initialValue=expression COMMA)  # typedVariableDeclaration
-  | variableName=IDENTIFIER INIT initialValue=expression COMMA                       # untypedVariableDeclaration
+  : variableName=IDENTIFIER ALS type (ODER SO COMMA | INIT initialValue=expression COMMA)  # typedVariableDeclaration
+  | variableName=IDENTIFIER INIT initialValue=expression COMMA                             # untypedVariableDeclaration
   ;
 
 assignment

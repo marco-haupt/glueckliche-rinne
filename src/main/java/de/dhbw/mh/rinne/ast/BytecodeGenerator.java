@@ -13,6 +13,9 @@ public class BytecodeGenerator extends AstVisitor<String> {
         enterNode();
         String bytecode = "";
         for (AstNode child : node.getChildren()) {
+            if (child == null) {
+                continue;
+            }
             bytecode += child.accept(this);
         }
         exitNode();
@@ -22,8 +25,11 @@ public class BytecodeGenerator extends AstVisitor<String> {
     @Override
     public String visitVariableDeclarationStmt(AstVariableDeclarationStmtNode node) {
         enterNode();
-        String bytecode = node.getInitializer().accept(this);
-        bytecode += "istore <" + node.getName() + ">\n";
+        String bytecode = "";
+        if (node.getInitializer() != null) {
+            bytecode += node.getInitializer().accept(this);
+            bytecode += "istore <" + node.getName() + ">\n";
+        }
         exitNode();
         return bytecode;
     }

@@ -21,7 +21,7 @@ public abstract class AstNode {
         return Collections.unmodifiableList(children);
     }
 
-    String locationAsString() {
+    public String locationAsString() {
         return codeLocation.inColonNotation();
     }
 

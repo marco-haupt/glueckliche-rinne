@@ -1,23 +1,24 @@
 package de.dhbw.mh.rinne.ast;
 
-import java.util.List;
-
 import de.dhbw.mh.rinne.CodeLocation;
 import de.dhbw.mh.rinne.semantic.Scope;
 
-public class AstProgramNode extends AstNode {
+public class AstScopedStmtsNode extends AstNode {
 
     private final Scope scope;
 
-    public AstProgramNode(CodeLocation codeLocation, List<AstStmtNode> statements) {
+    public AstScopedStmtsNode(CodeLocation codeLocation) {
         super(codeLocation);
         this.scope = new Scope();
-        this.children.addAll(statements);
     }
 
     @Override
     public <T> T accept(AstVisitor<T> visitor) {
-        return visitor.visitProgram(this);
+        return visitor.visitScopedStatements(this);
+    }
+
+    public void add(AstStmtNode stmt) {
+        this.children.add(stmt);
     }
 
     public Scope getScope() {

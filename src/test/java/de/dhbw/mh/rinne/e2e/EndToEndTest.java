@@ -16,11 +16,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import de.dhbw.mh.rinne.AstBuilder;
+import de.dhbw.mh.rinne.ErrorLogger;
 import de.dhbw.mh.rinne.antlr.RinneLexer;
 import de.dhbw.mh.rinne.antlr.RinneParser;
 import de.dhbw.mh.rinne.ast.AstNode;
 import de.dhbw.mh.rinne.ast.AstPrinter;
 import de.dhbw.mh.rinne.ast.BytecodeGenerator;
+import de.dhbw.mh.rinne.semantic.TypeChecker;
+import de.dhbw.mh.rinne.semantic.UsageChecker;
+import de.dhbw.mh.rinne.semantic.VariableResolver;
 
 class EndToEndTest {
 
@@ -28,6 +32,7 @@ class EndToEndTest {
     private static final String SOURCE_FILENAME = "source.gr";
     private static final String EXPECTED_OUTPUT_FILENAME = "out.txt";
     private static final String EXPECTED_BYTECODE_FILENAME = "bytecode.txt";
+    private static final String EXPECTED_ERRORS_FILENAME = "errors.txt";
 
     static Stream<String> testCasesProvider() {
         File[] directories = TEST_ROOT.listFiles(File::isDirectory);
@@ -80,6 +85,33 @@ class EndToEndTest {
             String bytecode = ast.accept(new BytecodeGenerator());
 
             assertThat(normalized(bytecode)).isEqualTo(normalized(expectedBytecode));
+        } catch (IOException e) {
+            fail("Error reading files in " + testDirectory.getName() + ": " + e.getMessage());
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("testCasesProvider")
+    void compareErrors(String testDirectoryPath) {
+        File testDirectory = new File(testDirectoryPath);
+        File sourceFile = new File(testDirectory, SOURCE_FILENAME);
+        File expectedErrorsFile = new File(testDirectory, EXPECTED_ERRORS_FILENAME);
+
+        assumeTrue(sourceFile.exists(), "Test skipped because '" + SOURCE_FILENAME + "' does not exist.");
+        assumeTrue(expectedErrorsFile.exists(),
+                "Test skipped because '" + EXPECTED_ERRORS_FILENAME + "' does not exist.");
+
+        try {
+            String sourceCode = readFile(sourceFile);
+            String expectedErrors = readFile(expectedErrorsFile);
+            var ast = executeCompilerPipeline(sourceCode);
+
+            ErrorLogger logger = new ErrorLogger();
+            ast.accept(new VariableResolver(logger));
+            ast.accept(new UsageChecker(logger));
+            ast.accept(new TypeChecker(logger));
+
+            assertThat(normalized(logger.toString())).isEqualTo(normalized(expectedErrors));
         } catch (IOException e) {
             fail("Error reading files in " + testDirectory.getName() + ": " + e.getMessage());
         }

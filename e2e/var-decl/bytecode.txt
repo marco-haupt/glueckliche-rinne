@@ -2,3 +2,5 @@ iload <elf>
 istore <n>
 iload <Zeichenkette>
 istore <m>
+iload <n>
+istore <x>

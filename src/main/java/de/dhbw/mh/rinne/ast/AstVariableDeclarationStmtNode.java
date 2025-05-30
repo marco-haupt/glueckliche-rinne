@@ -1,14 +1,16 @@
 package de.dhbw.mh.rinne.ast;
 
 import de.dhbw.mh.rinne.CodeLocation;
+import de.dhbw.mh.rinne.RinneType;
 
 public class AstVariableDeclarationStmtNode extends AstStmtNode {
 
     private final String name;
-    private final String type;
+    private final RinneType type;
     private final AstExpressionNode initializer;
+    private boolean isUsed = false;
 
-    public AstVariableDeclarationStmtNode(CodeLocation codeLocation, String name, String type,
+    public AstVariableDeclarationStmtNode(CodeLocation codeLocation, String name, RinneType type,
             AstExpressionNode initializer) {
         super(codeLocation);
         this.name = name;
@@ -28,6 +30,18 @@ public class AstVariableDeclarationStmtNode extends AstStmtNode {
 
     public AstExpressionNode getInitializer() {
         return initializer;
+    }
+
+    public void setUsed() {
+        isUsed = true;
+    }
+
+    public boolean isUsed() {
+        return isUsed;
+    }
+
+    public RinneType getType() {
+        return type;
     }
 
 }

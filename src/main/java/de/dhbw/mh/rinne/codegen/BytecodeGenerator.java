@@ -130,51 +130,7 @@ public class BytecodeGenerator extends BaseBytecodeGenerator {
 
     // Team 2: equal and not equal
     public String equalityExpressions(BinaryOperation op, RinneType type, String lhs, String rhs) {
-        String labelTrue = generateUniqueLabel("true");
-        String labelEnd = generateUniqueLabel("end");
-        String byteCode = "";
-        if (op.equals(BinaryOperation.EQUAL)) {
-            switch (type) {
-                case GANZZAHL:
-                    byteCode = String.format("%s\n%s\nif_lcmpeq %s\n%s\ngoto %s\n%s\n%s\n%s\n", lhs, rhs, labelTrue,
-                            pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
-                    break;
-                case FLIEßZAHL:
-                    byteCode = String.format("%s\n%s\nif_dcmpeq %s\n%s\ngoto %s\n%s\n%s\n%s\n", lhs, rhs, labelTrue,
-                            pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
-                    break;
-                case WAHRHEITSWERT:
-                    byteCode = String.format("%s\n%s\nif_icmpeq %s\n%s\ngoto %s\n%s\n%s\n%s\n", lhs, rhs, labelTrue,
-                            pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
-                    break;
-                case SCHNUR:
-                    byteCode = String.format("%s\n%s\nif_acmpeq %s\n%s\ngoto %s\n%s\n%s\n%s\n", lhs, rhs, labelTrue,
-                            pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
-                    break;
-            }
-        } else if (op.equals(BinaryOperation.NOT_EQUAL)) {
-            switch (type) {
-                case GANZZAHL:
-                    byteCode = String.format("%s\n%s\nif_lcmpne %s\n%s\ngoto %s\n%s\n%s\n%s\n", lhs, rhs, labelTrue,
-                            pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
-                    break;
-                case FLIEßZAHL:
-                    byteCode = String.format("%s\n%s\nif_dcmpne %s\n%s\ngoto %s\n%s\n%s\n%s\n", lhs, rhs, labelTrue,
-                            pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
-                    break;
-                case WAHRHEITSWERT:
-                    byteCode = String.format("%s\n%s\nif_icmpne %s\n%s\ngoto %s\n%s\n%s\n%s\n", lhs, rhs, labelTrue,
-                            pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
-                    break;
-                case SCHNUR:
-                    byteCode = String.format("%s\n%s\nif_acmpne %s\n%s\ngoto %s\n%s\n%s\n%s\n", lhs, rhs, labelTrue,
-                            pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
-                    break;
-            }
-        } else {
-            throw new RuntimeException("unexpected equality expression");
-        }
-        return byteCode;
+        return "";
     }
 
     // Team 3: less than (or equal) and greater than (or equal)

@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 import de.dhbw.mh.rinne.BinaryOperation;
 import de.dhbw.mh.rinne.RinneType;
 import de.dhbw.mh.rinne.UnaryOperation;
-import de.dhbw.mh.rinne.ast.AstBinaryExpressionNode;
 import de.dhbw.mh.rinne.ast.AstLiteralNode;
 import de.dhbw.mh.rinne.ast.AstUnaryExpressionNode;
 import de.dhbw.mh.rinne.ast.AstVariableDeclarationStmtNode;
@@ -58,22 +57,6 @@ public class TypeChecker extends BaseTypeChecker {
     // Team 1: Binary Operations
 
     // Team 2: Unary Operations
-    @Override
-    public RinneType visitUnaryExpression(AstUnaryExpressionNode node) {
-        RinneType type = node.expr().getType();
-        UnaryOperation operator = node.operator();
-        TypeCheckResult result = BaseTypeChecker.checkUnaryOperation(type, operator);
-        switch (result.status()) {
-            case OK:
-                break;
-            case NEEDS_CAST:
-                break;
-            case INCOMPATIBLE:
-                throw new ClassCastException(
-                        String.format("incompatible type: operation '%s' cannot be used on type '%s'", operator, type));
-        }
-        return result.requiredType();
-    }
 
     // Team 3: Assignments
 

@@ -1,0 +1,2 @@
+c als Wahrheitswert := wahr && falsch,
+c = wahr || falsch,

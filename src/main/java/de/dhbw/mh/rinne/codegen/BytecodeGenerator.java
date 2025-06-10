@@ -125,7 +125,37 @@ public class BytecodeGenerator extends BaseBytecodeGenerator {
 
     // Team 1: conjunction and disjunction
     public String logicalExpressions(BinaryOperation op, RinneType type, String lhs, String rhs) {
-        return "";
+        String byteCode;
+        if (op.equals(BinaryOperation.LOR)) {
+            String labelTrue = generateUniqueLabel("true");
+            String labelEnd = generateUniqueLabel("end");
+            byteCode = String.format("%s\nifne %s\n%s\nifne %s\n%s\ngoto %s\n%s\n%s\n%s\n",
+                    lhs,
+                    labelTrue,
+                    rhs,
+                    labelTrue,
+                    pushFalse(),
+                    labelEnd,
+                    labelTrue,
+                    pushTrue(),
+                    labelEnd);
+        } else if (op.equals(BinaryOperation.LAND)) {
+            String labelFalse = generateUniqueLabel("false");
+            String labelEnd = generateUniqueLabel("end");
+            byteCode = String.format("%s\nifeq %s\n%s\nifeq %s\n%s\ngoto %s\n%s\n%s\n%s\n",
+                    lhs,
+                    labelFalse,
+                    rhs,
+                    labelFalse,
+                    pushTrue(),
+                    labelEnd,
+                    labelFalse,
+                    pushFalse(),
+                    labelEnd);
+        } else {
+            throw new RuntimeException("unexpected logical operation");
+        }
+        return byteCode;
     }
 
     // Team 2: equal and not equal

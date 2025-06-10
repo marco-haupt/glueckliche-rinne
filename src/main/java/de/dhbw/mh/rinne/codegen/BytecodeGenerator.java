@@ -135,7 +135,35 @@ public class BytecodeGenerator extends BaseBytecodeGenerator {
 
     // Team 3: less than (or equal) and greater than (or equal)
     public String relationalExpressions(BinaryOperation op, RinneType type, String lhs, String rhs) {
-        return "";
+        String byteCode;
+        if (op.equals(BinaryOperation.LESS_THAN)) {
+            String labelTrue = generateUniqueLabel("true");
+            String labelEnd = generateUniqueLabel("end");
+            byteCode = String.format(
+                    "%s\n" + "%s\n" + "if_icmplt %s\n" + "%s\n" + "goto %s\n" + "%s:\n" + "%s\n" + "%s:\n", lhs, rhs,
+                    labelTrue, pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
+        } else if (op.equals(BinaryOperation.LESS_EQUAL)) {
+            String labelTrue = generateUniqueLabel("true");
+            String labelEnd = generateUniqueLabel("end");
+            byteCode = String.format(
+                    "%s\n" + "%s\n" + "if_icmple %s\n" + "%s\n" + "goto %s\n" + "%s:\n" + "%s\n" + "%s:\n", lhs, rhs,
+                    labelTrue, pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
+        } else if (op.equals(BinaryOperation.GREATER_THAN)) {
+            String labelTrue = generateUniqueLabel("true");
+            String labelEnd = generateUniqueLabel("end");
+            byteCode = String.format(
+                    "%s\n" + "%s\n" + "if_icmpgt %s\n" + "%s\n" + "goto %s\n" + "%s:\n" + "%s\n" + "%s:\n", lhs, rhs,
+                    labelTrue, pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
+        } else if (op.equals(BinaryOperation.GREATER_EQUAL)) {
+            String labelTrue = generateUniqueLabel("true");
+            String labelEnd = generateUniqueLabel("end");
+            byteCode = String.format(
+                    "%s\n" + "%s\n" + "if_icmpge %s\n" + "%s\n" + "goto %s\n" + "%s:\n" + "%s\n" + "%s:\n", lhs, rhs,
+                    labelTrue, pushFalse(), labelEnd, labelTrue, pushTrue(), labelEnd);
+        } else {
+            throw new RuntimeException("unexpected logical operation");
+        }
+        return byteCode;
     }
 
     // Team 4: if-then-else

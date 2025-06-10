@@ -1,0 +1,26 @@
+a als Ganzzahl := 1,
+b als Ganzzahl := 4,
+
+wenn(a < b)
+  drucke "positv",
+ansonsten
+  drucke "nicht positv",
+.
+
+wenn(a <= b)
+  drucke "positv",
+ansonsten
+  drucke "nicht positv",
+.
+
+wenn(a > b)
+  drucke "positv",
+ansonsten
+  drucke "nicht positv",
+.
+
+wenn(a >= b)
+  drucke "positv",
+ansonsten
+  drucke "nicht positv",
+.

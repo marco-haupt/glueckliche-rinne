@@ -1,0 +1,2 @@
+ istore 0
+istore 1

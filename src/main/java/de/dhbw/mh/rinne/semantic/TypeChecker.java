@@ -4,9 +4,7 @@ import java.util.NoSuchElementException;
 
 import de.dhbw.mh.rinne.BinaryOperation;
 import de.dhbw.mh.rinne.RinneType;
-import de.dhbw.mh.rinne.UnaryOperation;
 import de.dhbw.mh.rinne.ast.AstLiteralNode;
-import de.dhbw.mh.rinne.ast.AstUnaryExpressionNode;
 import de.dhbw.mh.rinne.ast.AstVariableDeclarationStmtNode;
 import de.dhbw.mh.rinne.ast.AstVariableReferenceNode;
 import de.dhbw.mh.rinne.ast.AstLiteralNode.Wahrheitswert;

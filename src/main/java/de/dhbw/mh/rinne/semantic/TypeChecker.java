@@ -62,13 +62,14 @@ public class TypeChecker extends BaseTypeChecker {
         RinneType type = node.expr().getType();
         UnaryOperation operator = node.operator();
         TypeCheckResult result = BaseTypeChecker.checkUnaryOperation(type, operator);
-        switch(result.status()) {
+        switch (result.status()) {
             case OK:
                 break;
             case NEEDS_CAST:
                 break;
             case INCOMPATIBLE:
-                throw new ClassCastException(String.format("incompatible type: operation '%s' cannot be used on type '%s'", operator, type));
+                throw new ClassCastException(
+                        String.format("incompatible type: operation '%s' cannot be used on type '%s'", operator, type));
         }
         return result.requiredType();
     }

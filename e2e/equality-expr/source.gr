@@ -1,0 +1,23 @@
+a als Ganzzahl := 5
+b als Ganzzahl := 5
+
+c als Schnur := "Hallo"
+d als Schnur := "Hallo"
+
+e als Fließzahl := 3.0
+f als Fließzahl := 2.0
+
+g als Wahrheitswert := wahr
+h als Wahrheitswert := falsch
+
+a == b
+a != b
+
+c == d
+c != d
+
+e != f
+e == f  
+
+g != h
+g == h

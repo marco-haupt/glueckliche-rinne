@@ -19,4 +19,12 @@ public class AstUnaryExpressionNode extends AstExpressionNode {
         return visitor.visitUnaryExpression(this);
     }
 
+    public UnaryOperation operator() {
+        return operator;
+    }
+
+    public AstExpressionNode expr() {
+        return expr;
+    }
+
 }

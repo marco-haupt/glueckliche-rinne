@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 import de.dhbw.mh.rinne.BinaryOperation;
 import de.dhbw.mh.rinne.RinneType;
+import de.dhbw.mh.rinne.ast.AstAssignmentNode;
 import de.dhbw.mh.rinne.ast.AstLiteralNode;
 import de.dhbw.mh.rinne.ast.AstVariableDeclarationStmtNode;
 import de.dhbw.mh.rinne.ast.AstVariableReferenceNode;
@@ -57,6 +58,26 @@ public class TypeChecker extends BaseTypeChecker {
     // Team 2: Unary Operations
 
     // Team 3: Assignments
+    @Override
+    public RinneType visitAssignment(AstAssignmentNode node) {
+        visitAssignment(node);
+        var varDef = scopes.lookupVariable(node.name());
+        RinneType varType = varDef.get().getDeclNode().getType();
+        RinneType valueType = node.value().getType();
+
+        TypeCheckResult types = BaseTypeChecker.checkBinaryOperation(valueType, BinaryOperation.ASSIGN, varType);
+
+        switch (types.status()) {
+            case OK:
+                break;
+            case NEEDS_CAST:
+                node.castValue(varType);
+            case INCOMPATIBLE:
+                throw new ClassCastException(String.format(
+                        "incompatible types: '%s'  cannot be used with '%s' for an assignment", valueType, varType));
+        }
+        return types.requiredType();
+    }
 
     // Team 5: Literals
     @Override
